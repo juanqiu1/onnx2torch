@@ -183,7 +183,7 @@ class OnnxReduceStaticAxes(nn.Module, OnnxToTorchModule):  # pylint: disable=mis
             self.axes = list(range(input_tensor.dim()))
 
         if self.operation_type not in ['ReduceMax', 'ReduceMin', 'ReduceProd']:
-            return self.math_op_function(input_tensor, dim=self.axes, keepdim=self.keepdims)
+            return self.math_op_function(input_tensor, dim=tuple(self.axes), keepdim=self.keepdims)
 
         result = input_tensor
         for passed_dims, axis in enumerate(self.axes):
