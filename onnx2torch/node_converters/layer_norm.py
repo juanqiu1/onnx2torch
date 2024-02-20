@@ -4,6 +4,8 @@ __all__ = [
 
 from typing import Optional
 
+import sys
+
 import torch
 import torch.nn.functional as F
 from torch import nn
@@ -54,8 +56,9 @@ def _(node: OnnxNode, graph: OnnxGraph) -> OperationConverterResult:
         input_value_info = graph.value_info[node.input_values[0]]
         input_shape = get_shape_from_value_info(input_value_info)
 
+        print("WARNING: You are using hacked onnx2torch!", file=sys.stderr)
         torch_module = nn.LayerNorm(
-            normalized_shape=input_shape[axis:],
+            normalized_shape=1536, #input_shape[axis:],
             eps=epsilon,
             elementwise_affine=True,
         )
